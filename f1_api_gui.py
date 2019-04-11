@@ -91,14 +91,14 @@ class StartPage(tk.Frame):
                                            style='my.TButton',
                                           command= lambda: controller.show_frame(DriverStandings))
         driverStanding_button.pack(side='left', padx=50)
-        currentSeason_button = ttk.Button(self, text='Current Season',
+        currentSeason_button = ttk.Button(self, text='Season races',
                                            style='my.TButton',
                                           command= lambda: controller.show_frame(CurrentSeason))
         currentSeason_button.pack(side='right', padx=50)
         constructorStanding_button = ttk.Button(self, text='Constructor Standings',
                                            style='my.TButton',
                                           command= lambda: controller.show_frame(ConstructorStandings))
-        constructorStanding_button.pack( padx=50)
+        constructorStanding_button.pack(side='left', padx=50)
 
 
 class CurrentSeason(tk.Frame):
