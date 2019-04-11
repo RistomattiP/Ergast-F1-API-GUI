@@ -1,20 +1,29 @@
-#API documentation http://ergast.com/mrd/
 import tkinter as tk
 from tkinter import ttk
 
 from ergast_api import Ergast
-
-season = '1998'
-ergast = Ergast(season)
+import argparse
 
 largeFont = ('Verdana', 12)
 mediumFont = ('Helvetica', 10)
 smallFont = ('Helvetica', 8)
 
-##def changeSeason(x):
-##    global season
-##    season = x
-    
+parser = argparse.ArgumentParser()
+parser.add_argument('--season', type=str, default='current',
+                    help='F1 season data you want to see. 1950-2019')
+args = parser.parse_args()
+
+if args.season == 'current':
+    pass
+else:
+    try:
+        int(args.season)
+    except ValueError:
+        print('Season must be between 1950 and 2019 or current')
+        quit()
+
+ergast = Ergast(args.season)
+  
 class ErgastApiClient(tk.Tk):
 
     def __init__(self, *args, **kwargs):
@@ -40,7 +49,7 @@ class ErgastApiClient(tk.Tk):
                              command=lambda: self.show_frame(DriverStandings))
         showmenu.add_command(label='Constructor standings',
                              command=lambda: self.show_frame(ConstructorStandings))
-        showmenu.add_command(label='{} season races'.format(ergast.season),
+        showmenu.add_command(label='Show {} season races'.format(ergast.season),
                              command=lambda: self.show_frame(CurrentSeason))
         menubar.add_cascade(label='Show', menu=showmenu)
 
