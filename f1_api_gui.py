@@ -17,7 +17,9 @@ if args.season == 'current':
     pass
 else:
     try:
-        int(args.season)
+        if int(args.season) < 1950:
+            print('Season must be between 1950 and 2019 or current')
+            quit()
     except ValueError:
         print('Season must be between 1950 and 2019 or current')
         quit()
@@ -198,56 +200,62 @@ class DriverStandings(tk.Frame):
 
 
 class ConstructorStandings(tk.Frame):
+    if ergast.season == 'current' or int(ergast.season) > 1957:
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
 
-    def __init__(self, parent, controller):
-        tk.Frame.__init__(self, parent)
+            canvas = tk.Canvas(self)
+            frame = tk.Frame(canvas)
 
-        canvas = tk.Canvas(self)
-        frame = tk.Frame(canvas)
+            scrollbar = tk.Scrollbar(self,orient='vertical', command=canvas.yview)
+            canvas.configure(yscrollcommand=scrollbar.set)
+            scrollbar.pack(side = 'right', fill='y')
 
-        scrollbar = tk.Scrollbar(self,orient='vertical', command=canvas.yview)
-        canvas.configure(yscrollcommand=scrollbar.set)
-        scrollbar.pack(side = 'right', fill='y')
+            label1 = ttk.Label(frame, text='Constructor Standings', font=largeFont)
+            label1.grid(row=0, column=2, pady=10)
 
-        label1 = ttk.Label(frame, text='Constructor Standings', font=largeFont)
-        label1.grid(row=0, column=2, pady=10)
+            label2 = ttk.Label(frame, text='Season:', font=largeFont)
+            label2.grid(row=1, column=0, pady=20)
 
-        label2 = ttk.Label(frame, text='Season:', font=largeFont)
-        label2.grid(row=1, column=0, pady=20)
-
-        label3 = ttk.Label(frame, text=ergast.season, font=largeFont)
-        label3.grid(row=1, column=1, pady=20)
-        
-        position_label = ttk.Label(frame, text='Position', font=largeFont)
-        position_label.grid(column=0,row=2, padx = 20, pady=10)
-
-        driver_label = ttk.Label(frame, text='Constructor', font=largeFont)
-        driver_label.grid(column=1,row=2, padx = 40, pady=10)
-
-
-        points_label = ttk.Label(frame, text='Points', font=largeFont)
-        points_label.grid(column=2,row=2, padx = 40, pady=10)
-
-        wins_label = ttk.Label(frame, text='Wins', font=largeFont)
-        wins_label.grid(column=3,row=2, padx = 20, pady=10)
-
-        constructorStandings, total_constructors = ergast.constructorStandings()
-
-
-        for constructor in range(int(total_constructors)):
-            for i in range(4):
-                label = ttk.Label(frame, text=str(constructorStandings[constructor][i]),
-                                  font=largeFont)
-                label.grid(row=constructor+3, column=i, pady=5)
+            label3 = ttk.Label(frame, text=ergast.season, font=largeFont)
+            label3.grid(row=1, column=1, pady=20)
             
-        def scrollfunction(event):
-            canvas.configure(scrollregion=canvas.bbox("all"),
-                             width=800,height=650)
-     
-        frame.pack()
-        canvas.pack()
-        canvas.create_window((0,0), window=frame, anchor='n')
-        frame.bind("<Configure>",scrollfunction)
+            position_label = ttk.Label(frame, text='Position', font=largeFont)
+            position_label.grid(column=0,row=2, padx = 20, pady=10)
+
+            driver_label = ttk.Label(frame, text='Constructor', font=largeFont)
+            driver_label.grid(column=1,row=2, padx = 40, pady=10)
+
+
+            points_label = ttk.Label(frame, text='Points', font=largeFont)
+            points_label.grid(column=2,row=2, padx = 40, pady=10)
+
+            wins_label = ttk.Label(frame, text='Wins', font=largeFont)
+            wins_label.grid(column=3,row=2, padx = 20, pady=10)
+
+            constructorStandings, total_constructors = ergast.constructorStandings()
+
+
+            for constructor in range(int(total_constructors)):
+                for i in range(4):
+                    label = ttk.Label(frame, text=str(constructorStandings[constructor][i]),
+                                    font=largeFont)
+                    label.grid(row=constructor+3, column=i, pady=5)
+                
+            def scrollfunction(event):
+                canvas.configure(scrollregion=canvas.bbox("all"),
+                                width=800,height=650)
+        
+            frame.pack()
+            canvas.pack()
+            canvas.create_window((0,0), window=frame, anchor='n')
+            frame.bind("<Configure>",scrollfunction)
+    else:
+        def __init__(self, parent, controller):
+            tk.Frame.__init__(self, parent)
+
+            label = ttk.Label(self, text='No Data 1950-1957', font=largeFont)
+            label.pack()
         
 
 app = ErgastApiClient()

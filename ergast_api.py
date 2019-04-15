@@ -37,7 +37,9 @@ class Ergast():
         data = requests.get(url)
         data = data.json()
         total_limit = data['MRData']['limit']
+        total_limit = int(total_limit)
         total_drivers = data['MRData']['total']
+        total_drivers = int(total_drivers)
         if total_limit < total_drivers: total_drivers = total_limit
         data = data['MRData']['StandingsTable']['StandingsLists'][0]['DriverStandings']
         driverStandings = []
@@ -55,16 +57,18 @@ class Ergast():
         data = requests.get(url)
         data = data.json()
         total_limit = data['MRData']['limit']
+        total_limit = int(total_limit)
         total_constructors = data['MRData']['total']
+        total_constructors = int(total_constructors)
         if total_limit < total_constructors: total_constructors = total_limit
         data = data['MRData']['StandingsTable']['StandingsLists'][0]['ConstructorStandings']
         constructorStandings = []
-        for i in range(int(total_constructors)):
+        for i in range(total_constructors):
             constructorStandings.append([data[i]['position'],
                                         data[i]['Constructor']['name'],
                                         data[i]['points'],
                                         data[i]['wins']])
-        return constructorStandings, int(total_constructors)
+        return constructorStandings, total_constructors
 
     def nextRace(self):
         last_race_url = 'http://ergast.com/api/f1/current/last.json'
