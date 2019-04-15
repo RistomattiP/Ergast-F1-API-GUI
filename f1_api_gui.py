@@ -248,7 +248,7 @@ class ConstructorStandings(tk.Frame):
         
 
 app = ErgastApiClient()
-app.geometry('800x650')
+app.geometry('900x650')
 s = ttk.Style()
 s.configure('my.TButton', font=('Verdana', 12))
 app.mainloop()
