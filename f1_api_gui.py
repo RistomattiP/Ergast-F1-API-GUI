@@ -86,6 +86,9 @@ class StartPage(tk.Frame):
                           text='You are looking {} season data'.format(ergast.season),
                           font=largeFont)
         label.pack(pady=50)
+        if ergast.season == 'current':
+            nextRace_label = ttk.Label(self, text='Next race: {} {}'.format(ergast.nextRace()[0],ergast.nextRace()[1]) , font=largeFont)
+            nextRace_label.pack(pady=50)
 
         driverStanding_button = ttk.Button(self, text='Driver Standings',
                                            style='my.TButton',
