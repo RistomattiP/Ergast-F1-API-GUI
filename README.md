@@ -7,6 +7,6 @@ Link to API documentation http://ergast.com/mrd/
 
 Open cmd in folder
 
-Type f1_api_gui.py (optional. add --season x) 
+Type: f1_api_gui.py (optional. add --season x) for example: f1_api_gui.py --season 1982
 
 x must be a number between 1950 and 2019 or you can use 'current' for this years data.
