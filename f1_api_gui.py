@@ -17,14 +17,14 @@ if args.season == 'current':
     pass
 else:
     try:
-        if int(args.season) < 1950:
+        if int(args.season) < 1950 or int(args.season) > 2019:
             print('Season must be between 1950 and 2019 or current')
             quit()
     except ValueError:
         print('Season must be between 1950 and 2019 or current')
         quit()
 
-ergast = Ergast(args.season)
+ergast = Ergast(args.season) #Creating object ergast from Ergast class
   
 class ErgastApiClient(tk.Tk):
 

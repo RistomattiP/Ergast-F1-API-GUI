@@ -71,14 +71,18 @@ class Ergast():
         return constructorStandings, total_constructors
 
     def nextRace(self):
-        last_race_url = 'http://ergast.com/api/f1/current/last.json'
+        last_race_url = 'http://ergast.com/api/f1/current/next.json'
         data = requests.get(last_race_url)
         data = data.json()
-        last_round = data['MRData']['RaceTable']['round']
-        last_round = int(last_round)
-        total_races = self.allRaces()[1]
-        if last_round == total_races:
-            return [self.raceName(last_round-1), self.raceDate(last_round-1)]
-        else:
-            return [self.raceName(last_round), self.raceDate(last_round)]
+        data = data['MRData']['RaceTable']['Races'][0]
+        race_name = data['raceName']
+        race_date = data['date']
+        return [race_name, race_date]
+
+    def currentSeason(self):
+        url = 'http://ergast.com/api/f1/current.json'
+        data = requests.get(url)
+        data = data.json()
+        currentSeason = data['MRData']['RaceTable']['season']
+        return currentSeason
 
