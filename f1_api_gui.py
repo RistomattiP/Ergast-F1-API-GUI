@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 from ergast_api import Ergast
+import ergast_api
 import argparse
 
 largeFont = ('Verdana', 12)
@@ -13,11 +14,13 @@ parser.add_argument('--season', type=str, default='current',
                     help='F1 season data you want to see. 1950-2019')
 args = parser.parse_args()
 
+currentSeason = ergast_api.currentSeason()
+
 if args.season == 'current':
     pass
 else:
     try:
-        if int(args.season) < 1950 or int(args.season) > 2019:
+        if int(args.season) < 1950 or int(args.season) > currentSeason:
             print('Season must be between 1950 and 2019 or current')
             quit()
     except ValueError:
@@ -88,7 +91,7 @@ class StartPage(tk.Frame):
                           text='You are looking {} season data'.format(ergast.season),
                           font=largeFont)
         label.pack(pady=50)
-        if ergast.season == 'current':
+        if ergast.season == 'current' or ergast.season == str(currentSeason):
             nextRace_label = ttk.Label(self, text='Next race: {} {}'.format(ergast.nextRace()[0],ergast.nextRace()[1]) , font=largeFont)
             nextRace_label.pack(pady=50)
 

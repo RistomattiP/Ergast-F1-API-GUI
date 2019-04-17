@@ -79,10 +79,11 @@ class Ergast():
         race_date = data['date']
         return [race_name, race_date]
 
-    def currentSeason(self):
-        url = 'http://ergast.com/api/f1/current.json'
-        data = requests.get(url)
-        data = data.json()
-        currentSeason = data['MRData']['RaceTable']['season']
-        return currentSeason
+
+def currentSeason():
+    url = 'http://ergast.com/api/f1/current.json'
+    data = requests.get(url)
+    data = data.json()
+    currentSeason = data['MRData']['RaceTable']['season']
+    return int(currentSeason)
 
