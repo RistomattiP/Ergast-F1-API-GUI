@@ -1,6 +1,7 @@
 #API documentation http://ergast.com/mrd/
 import requests
 import json
+import os
 
 class Ergast():
 
@@ -53,9 +54,17 @@ class Ergast():
         return driverStandings, int(total_drivers)
 
     def constructorStandings(self):
-        url = 'http://ergast.com/api/f1/{}/constructorStandings.json'.format(self.season)
-        data = requests.get(url)
-        data = data.json()
+        if not os.path.isfile('data/{}_constructorStandings'.format(self.season)):
+            url = 'http://ergast.com/api/f1/{}/constructorStandings.json'.format(self.season)
+            data = requests.get(url)
+            data = data.json()
+
+            with open('data\\{}_constructorStandings'.format(self.season),'w') as outfile:
+                json.dump(data, outfile)
+
+        with open('data\\{}_constructorStandings'.format(self.season),'r') as json_file:
+            data = json.load(json_file)
+
         total_limit = data['MRData']['limit']
         total_limit = int(total_limit)
         total_constructors = data['MRData']['total']
