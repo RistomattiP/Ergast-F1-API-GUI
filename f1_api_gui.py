@@ -4,6 +4,7 @@ from tkinter import ttk
 from ergast_api import Ergast
 import ergast_api
 import argparse
+import matplotlib.pyplot as plt
 
 largeFont = ('Verdana', 12)
 mediumFont = ('Helvetica', 10)
@@ -79,6 +80,7 @@ class ErgastApiClient(tk.Tk):
         frame = self.frames[cont]
         frame.tkraise()
 
+
 class StartPage(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -150,8 +152,6 @@ class DriverStandings(tk.Frame):
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
 
-        driverStandings, total_drivers = ergast.driverStandings()
-
         canvas = tk.Canvas(self)
         frame = tk.Frame(canvas)
         
@@ -182,6 +182,8 @@ class DriverStandings(tk.Frame):
 
         wins_label = ttk.Label(frame, text='Wins', font=largeFont)
         wins_label.grid(column=4,row=2, padx = 20, pady=10)
+
+        driverStandings, total_drivers = ergast.driverStandings()
 
         for driver in range(total_drivers):
             for i in range(5):
@@ -238,13 +240,19 @@ class ConstructorStandings(tk.Frame):
 
             constructorStandings, total_constructors = ergast.constructorStandings()
 
-
             for constructor in range(int(total_constructors)):
                 for i in range(4):
                     label = ttk.Label(frame, text=str(constructorStandings[constructor][i]),
                                     font=largeFont)
                     label.grid(row=constructor+3, column=i, pady=5)
-                
+
+            # plt.figure(1,figsize=(8,5.5))
+            # plt.subplot(111)
+            # plt.bar(constructorStandings[0][1],constructorStandings[0][2])
+            # plt.ylabel('Points')
+            # plt.xlabel('Teams')
+            # plt.title('Constructor Standings')        
+
             def scrollfunction(event):
                 canvas.configure(scrollregion=canvas.bbox("all"),
                                 width=800,height=650)
