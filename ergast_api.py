@@ -8,25 +8,37 @@ class Ergast():
     def __init__(self, season='current'):
         self.season = season
         
+        path = 'C:/Users/RistoMatti/Documents/Python_projects/APIs/Ergast-F1-API-GUI/data'
+
+        if not os.path.isdir('data/{}'.format(self.season)):
+            os.mkdir('{}/{}'.format(path,self.season))
+
+        if not os.path.isfile('data/{}/{}_season'.format(self.season,self.season)):
+            url = 'http://ergast.com/api/f1/{}.json'.format(self.season)
+            data = requests.get(url)
+            data = data.json()
+
+            with open('data/{}/{}_season'.format(self.season,self.season),'w') as outfile:
+                json.dump(data, outfile)        
 
     def raceName(self, raceNumber):
-        url = 'http://ergast.com/api/f1/{}.json'.format(self.season)
-        data = requests.get(url)
-        data = data.json()
+        with open('data/{}/{}_season'.format(self.season,self.season),'r') as json_file:
+            data = json.load(json_file)
+
         data = data['MRData']['RaceTable']['Races'][raceNumber]
         return data['raceName']
 
     def raceDate(self, raceNumber):
-        url = 'http://ergast.com/api/f1/{}.json'.format(self.season)
-        data = requests.get(url)
-        data = data.json()
+        with open('data/{}/{}_season'.format(self.season,self.season),'r') as json_file:
+            data = json.load(json_file)
+
         data = data['MRData']['RaceTable']['Races'][raceNumber]
         return data['date']
 
     def allRaces(self):
-        url = 'http://ergast.com/api/f1/{}.json'.format(self.season)
-        data = requests.get(url)
-        data = data.json()
+        with open('data/{}/{}_season'.format(self.season,self.season),'r') as json_file:
+            data = json.load(json_file)
+
         total_races = data['MRData']['total']
         allRaces = []
         for i in range(int(total_races)):
@@ -34,9 +46,17 @@ class Ergast():
         return allRaces, total_races
     
     def driverStandings(self,):
-        url = 'http://ergast.com/api/f1/{}/driverStandings.json'.format(self.season)
-        data = requests.get(url)
-        data = data.json()
+        if not os.path.isfile('data/{}/{}_driverStandings'.format(self.season,self.season)) or self.season == 'current' or self.season == '2019':
+            url = 'http://ergast.com/api/f1/{}/driverStandings.json'.format(self.season)
+            data = requests.get(url)
+            data = data.json()
+
+            with open('data/{}/{}_driverStandings'.format(self.season,self.season),'w') as outfile:
+                json.dump(data, outfile)
+
+        with open('data/{}/{}_driverStandings'.format(self.season,self.season),'r') as json_file:
+            data = json.load(json_file)
+
         total_limit = data['MRData']['limit']
         total_limit = int(total_limit)
         total_drivers = data['MRData']['total']
@@ -54,15 +74,15 @@ class Ergast():
         return driverStandings, int(total_drivers)
 
     def constructorStandings(self):
-        if not os.path.isfile('data/{}_constructorStandings'.format(self.season)):
+        if not os.path.isfile('data/{}/{}_constructorStandings'.format(self.season,self.season)) or self.season == 'current' or self.season == '2019':
             url = 'http://ergast.com/api/f1/{}/constructorStandings.json'.format(self.season)
             data = requests.get(url)
             data = data.json()
 
-            with open('data\\{}_constructorStandings'.format(self.season),'w') as outfile:
+            with open('data/{}/{}_constructorStandings'.format(self.season,self.season),'w') as outfile:
                 json.dump(data, outfile)
 
-        with open('data\\{}_constructorStandings'.format(self.season),'r') as json_file:
+        with open('data/{}/{}_constructorStandings'.format(self.season,self.season),'r') as json_file:
             data = json.load(json_file)
 
         total_limit = data['MRData']['limit']
