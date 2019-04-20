@@ -239,6 +239,11 @@ class ConstructorStandings(tk.Frame):
             wins_label.grid(column=3,row=2, padx = 20, pady=10)
 
             constructorStandings, total_constructors = ergast.constructorStandings()
+            constructorNames = []
+            constructorPoints = []
+            for i in range(int(total_constructors)):
+                constructorNames.append(constructorStandings[i][1])
+                constructorPoints.append(constructorStandings[i][2])
 
             for constructor in range(int(total_constructors)):
                 for i in range(4):
@@ -246,12 +251,12 @@ class ConstructorStandings(tk.Frame):
                                     font=largeFont)
                     label.grid(row=constructor+3, column=i, pady=5)
 
-            # plt.figure(1,figsize=(8,5.5))
-            # plt.subplot(111)
-            # plt.bar(constructorStandings[0][1],constructorStandings[0][2])
-            # plt.ylabel('Points')
-            # plt.xlabel('Teams')
-            # plt.title('Constructor Standings')        
+            plt.figure(1,figsize=(8,5.5))
+            plt.subplot(111)
+            plt.bar(constructorNames[::-1],constructorPoints[::-1])
+            plt.ylabel('Points')
+            plt.xlabel('Teams')
+            plt.title('Constructor Standings')        
 
             def scrollfunction(event):
                 canvas.configure(scrollregion=canvas.bbox("all"),
@@ -273,4 +278,5 @@ app = ErgastApiClient()
 app.geometry('900x650')
 s = ttk.Style()
 s.configure('my.TButton', font=('Verdana', 12))
+plt.show()
 app.mainloop()
