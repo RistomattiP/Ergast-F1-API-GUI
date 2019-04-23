@@ -22,5 +22,3 @@ goto build and run the exe file.
 You can cahnge the season when running exe file from cmd
 
 f1_api_gui.exe --season 2019
-
-x must be a number between 1950 and 2019 or you can use 'current' for this years data.
