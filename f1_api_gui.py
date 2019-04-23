@@ -196,12 +196,12 @@ class DriverStandings(tk.Frame):
                                   font=largeFont)
                 label.grid(row=driver+3, column=i)
 
-            plt.figure(1,figsize=(8,5.5))
+            plt.figure('F1 Data Plot',figsize=(8,5.5))
             plt.subplot(212)
             plt.bar(driverNames[::-1],driverPoints[::-1])
             plt.ylabel('Points')
             plt.xlabel('Position')
-            plt.title('Driver Standings') 
+            plt.title('Driver Standings {}'.format(ergast.season)) 
 
         def scrollfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"),
@@ -263,12 +263,12 @@ class ConstructorStandings(tk.Frame):
                                     font=largeFont)
                     label.grid(row=constructor+3, column=i, pady=5)
 
-            plt.figure(1,figsize=(8,5.5))
+            plt.figure('F1 Data Plot',figsize=(8,5.5))
             plt.subplot(211)
             plt.bar(constructorNames[::-1],constructorPoints[::-1])
             plt.ylabel('Points')
             plt.xlabel('Teams')
-            plt.title('Constructor Standings')        
+            plt.title('Constructor Standings {}'.format(ergast.season))        
 
             def scrollfunction(event):
                 canvas.configure(scrollregion=canvas.bbox("all"),

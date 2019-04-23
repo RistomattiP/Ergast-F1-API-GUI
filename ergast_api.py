@@ -8,7 +8,7 @@ class Ergast():
     def __init__(self, season='current'):
         self.season = season
         
-        path = 'C:/Users/RistoMatti/Documents/Python_projects/APIs/Ergast-F1-API-GUI/data'
+        path = '{}\\data'.format(os.path.abspath('C:'))
 
         if not os.path.isdir('data/{}'.format(self.season)):
             os.mkdir('{}/{}'.format(path,self.season))
@@ -71,7 +71,7 @@ class Ergast():
                                     data[i]['Constructors'][0]['name'],
                                     data[i]['points'],
                                     data[i]['wins'],
-                                    data[i]['Driver']['code']])
+                                    data[i]['Driver']['familyName'][:3]])
         return driverStandings, int(total_drivers)
 
     def constructorStandings(self):
