@@ -70,7 +70,8 @@ class Ergast():
                                     str(data[i]['Driver']['familyName']),
                                     data[i]['Constructors'][0]['name'],
                                     data[i]['points'],
-                                    data[i]['wins']])
+                                    data[i]['wins'],
+                                    data[i]['Driver']['code']])
         return driverStandings, int(total_drivers)
 
     def constructorStandings(self):

@@ -184,12 +184,24 @@ class DriverStandings(tk.Frame):
         wins_label.grid(column=4,row=2, padx = 20, pady=10)
 
         driverStandings, total_drivers = ergast.driverStandings()
+        driverNames = []
+        driverPoints = []
+        for i in range(total_drivers):
+            driverNames.append(driverStandings[i][5])
+            driverPoints.append(driverStandings[i][3])
 
         for driver in range(total_drivers):
             for i in range(5):
                 label = ttk.Label(frame, text=str(driverStandings[driver][i]),
                                   font=largeFont)
                 label.grid(row=driver+3, column=i)
+
+            plt.figure(1,figsize=(8,5.5))
+            plt.subplot(212)
+            plt.bar(driverNames[::-1],driverPoints[::-1])
+            plt.ylabel('Points')
+            plt.xlabel('Position')
+            plt.title('Driver Standings') 
 
         def scrollfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"),
@@ -252,7 +264,7 @@ class ConstructorStandings(tk.Frame):
                     label.grid(row=constructor+3, column=i, pady=5)
 
             plt.figure(1,figsize=(8,5.5))
-            plt.subplot(111)
+            plt.subplot(211)
             plt.bar(constructorNames[::-1],constructorPoints[::-1])
             plt.ylabel('Points')
             plt.xlabel('Teams')
