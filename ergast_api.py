@@ -8,10 +8,13 @@ class Ergast():
     def __init__(self, season='current'):
         self.season = season
         
-        path = '{}\\data'.format(os.path.abspath('C:'))
+        path = '{}'.format(os.path.abspath('C:'))
+
+        if not os.path.isdir('data'):
+            os.mkdir('{}/data'.format(path))
 
         if not os.path.isdir('data/{}'.format(self.season)):
-            os.mkdir('{}/{}'.format(path,self.season))
+            os.mkdir('{}/data/{}'.format(path,self.season))
 
         if not os.path.isfile('data/{}/{}_season'.format(self.season,self.season)):
             url = 'http://ergast.com/api/f1/{}.json'.format(self.season)

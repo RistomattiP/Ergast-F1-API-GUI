@@ -5,6 +5,10 @@ from ergast_api import Ergast
 import ergast_api
 import argparse
 import matplotlib.pyplot as plt
+import sys
+
+def quit():
+    sys.exit()
 
 largeFont = ('Verdana', 12)
 mediumFont = ('Helvetica', 10)
