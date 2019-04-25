@@ -70,7 +70,7 @@ class ErgastApiClient(tk.Tk):
         self.frames = {}
 
         for F in (StartPage, CurrentSeason, DriverStandings,
-                  ConstructorStandings):
+                  ConstructorStandings, BootPage):
             
             frame = F(container, self)
 
@@ -288,7 +288,24 @@ class ConstructorStandings(tk.Frame):
 
             label = ttk.Label(self, text='No Data 1950-1957', font=largeFont)
             label.pack()
-        
+
+
+class BootPage(tk.Frame):
+
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self,parent)
+
+        label = ttk.Label(self,text='Welcome to use Ergast API Client',
+                          font=largeFont)
+        label.pack()
+
+        entry = ttk.Entry(self)
+        entry.pack()
+
+        button = ttk.Button(self, text='StartPage',
+                                        style='my.TButton',
+                                        command= lambda: print(entry.get()))
+        button.pack(side='left', padx=50)
 
 app = ErgastApiClient()
 app.geometry('900x650')
