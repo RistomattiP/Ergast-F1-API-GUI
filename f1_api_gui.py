@@ -26,10 +26,10 @@ if args.season == 'current':
 else:
     try:
         if int(args.season) < 1950 or int(args.season) > currentSeason:
-            print('Season must be between 1950 and 2019 or current')
+            print('Season must be between 1950 and current')
             quit()
     except ValueError:
-        print('Season must be between 1950 and 2019 or current')
+        print('Season must be between 1950 and current')
         quit()
 
 ergast = Ergast(args.season) #Creating object ergast from Ergast class
