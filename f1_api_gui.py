@@ -65,8 +65,6 @@ class ErgastApiClient(tk.Tk):
 
         tk.Tk.config(self, menu=menubar)
 
-
-
         self.frames = {}
 
         for F in (StartPage, CurrentSeason, DriverStandings,
@@ -151,6 +149,7 @@ class CurrentSeason(tk.Frame):
         canvas.create_window((0,0), window=frame, anchor='n')
         frame.bind("<Configure>",scrollfunction)
 
+
 class DriverStandings(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -210,9 +209,6 @@ class DriverStandings(tk.Frame):
         def scrollfunction(event):
             canvas.configure(scrollregion=canvas.bbox("all"),
                              width=800,height=650)
-##            canvas.bind("<1>",lambda event: canvas.focus_set())
-##            canvas.bind("<Up>",lambda event: canvas.yview_scroll(-1, "units"))
-##            canvas.bind("<Down>",lambda event: canvas.yview_scroll( 1, "units"))
      
         frame.pack()
         canvas.pack()
@@ -306,6 +302,7 @@ class BootPage(tk.Frame):
                                         style='my.TButton',
                                         command= lambda: print(entry.get()))
         button.pack(side='left', padx=50)
+
 
 app = ErgastApiClient()
 app.geometry('900x650')

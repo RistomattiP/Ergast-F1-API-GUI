@@ -119,4 +119,3 @@ def currentSeason():
     data = data.json()
     currentSeason = data['MRData']['RaceTable']['season']
     return int(currentSeason)
-
